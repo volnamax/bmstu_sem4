@@ -5,11 +5,13 @@ int doAction(action_t &act)
     int rc = PASS;
     static threeDobject_t obj = initObj();
     static threeDobject_t tmp_obj = initObj();
+    
 
     if (act.action == ACTION_LOAD_OBJ)
     {
         copy_Obj(obj, tmp_obj);
         rc = loadObjFromFile(act.name_f, obj);
+
     }
     else if (act.action == ACTION_DRAW)
         rc = drawObj(act.scene, obj);
@@ -22,7 +24,6 @@ int doAction(action_t &act)
     else if (act.action == ACTION_SCALE_OBJ)
     {
         copy_Obj(obj, tmp_obj);
-
         rc = scaleObj(obj, act.center, act.coef.scale);
     }
     else if (act.action == ACTION_ROTATE_OBJ)

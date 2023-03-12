@@ -9,6 +9,17 @@ threeDobject_t &initObj(void)
     return obj;
 }
 
+int load_diam(FILE *in_file, threeDobject_t &obj)
+{
+    int rc = PASS;
+    if (fscanf(in_file, "%lf %lf", &obj.diam_circle, &obj.diam_ellips) != 2)
+        rc = ERR_READ_POINT;
+
+    else if (obj.diam_circle <= 0 || obj.diam_circle > SIZE_MAX || obj.diam_ellips <= 0 || obj.diam_ellips > SIZE_MAX)
+        rc = ERR_COUNT_RIBS;
+
+    return rc;
+}
 int loadObjFromFile(const char *&name_f, threeDobject_t &obj)
 {
     if (name_f == nullptr)
@@ -33,6 +44,13 @@ int loadObjFromFile(const char *&name_f, threeDobject_t &obj)
                 freeObj(obj);
                 obj = initObj();
             }
+            rc = load_diam(in_file, obj);
+            if (rc != PASS)
+            {
+                freeObj(obj);
+                obj = initObj();
+            }
+            printf("%lf. %lf", obj.diam_circle, obj.diam_ellips);
         }
         else
             freeArrPoint(obj.points); // если произошла ошибка при считывание ребер очищаем массив точек
@@ -45,21 +63,42 @@ int loadObjFromFile(const char *&name_f, threeDobject_t &obj)
 int drawObj(canvas_t &scene, const threeDobject_t &obj)
 {
     // draw left halh circle
-    double diameter = getDiam(obj.points.arr[0].x, obj.points.arr[1].x, obj.points.arr[0].y, obj.points.arr[1].y);
+    point_t point_one = {.x = obj.points.arr[0].x, .y = obj.points.arr[0].y};
+    point_t point_two = {.x = obj.points.arr[1].x, .y = obj.points.arr[1].y};
+
+    //double diameter = getDiam(obj.points.arr[0].x, obj.points.arr[1].x, obj.points.arr[0].y, obj.points.arr[1].y);
     double angle = getAngleRotateLine(obj.points.arr[0].x, obj.points.arr[1].x, obj.points.arr[0].y, obj.points.arr[1].y);
-    drawCircle(scene, diameter, diameter, obj.points.arr[4].x, obj.points.arr[4].y, angle);
+    drawElleps(scene, point_one, point_two, angle, LEFT_ELLEPS); // натягиваем на линию элипс
 
     // draw RIGHT halh circle
     angle = getAngleRotateLine(obj.points.arr[2].x, obj.points.arr[3].x, obj.points.arr[2].y, obj.points.arr[3].y);
-    drawCircle(scene, diameter, diameter, obj.points.arr[6].x, obj.points.arr[6].y, angle);
+    point_one.x = obj.points.arr[2].x;
+    point_one.y = obj.points.arr[2].y;
+
+    point_two.x = obj.points.arr[3].x;
+    point_two.y = obj.points.arr[3].y;
+
+    drawElleps(scene, point_one, point_two, angle, RIGHT_ELLEPS);
 
     // draw ellips top
     angle = getAngleRotateLine(obj.points.arr[1].x, obj.points.arr[2].x, obj.points.arr[1].y, obj.points.arr[2].y);
-    drawElleps(scene, obj.points.arr[1].x, obj.points.arr[2].x, obj.points.arr[1].y, obj.points.arr[2].y, angle, 1);
+    point_one.x = obj.points.arr[1].x;
+    point_one.y = obj.points.arr[1].y;
+
+    point_two.x = obj.points.arr[2].x;
+    point_two.y = obj.points.arr[2].y;
+
+    drawElleps(scene, point_one, point_two, angle, TOP_ELLEPS);
 
     // draw ellips  низ
     angle = getAngleRotateLine(obj.points.arr[0].x, obj.points.arr[3].x, obj.points.arr[0].y, obj.points.arr[3].y);
-    drawElleps(scene, obj.points.arr[0].x, obj.points.arr[3].x, obj.points.arr[0].y, obj.points.arr[3].y, angle, 0);
+    point_one.x = obj.points.arr[0].x;
+    point_one.y = obj.points.arr[0].y;
+
+    point_two.x = obj.points.arr[3].x;
+    point_two.y = obj.points.arr[3].y;
+
+    drawElleps(scene, point_one, point_two, angle, BOT_ELLEPS);
 
     return drawRibs(scene, obj.points, obj.ribs);
 }
@@ -71,6 +110,9 @@ int transferObj(threeDobject_t &obj, const point_t transfer_coef)
 
 int scaleObj(threeDobject_t &obj, const point_t &center, const point_t &scale_coef)
 {
+    obj.diam_circle = obj.diam_circle * scale_coef.x;
+    obj.diam_ellips = obj.diam_ellips * scale_coef.y;
+
     return scalePoints(obj.points, center, scale_coef);
 }
 
