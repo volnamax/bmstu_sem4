@@ -80,10 +80,21 @@ int rotateObj(threeDobject_t &obj, const point_t &center, const double rotate_co
     return rotatePoints(obj.points, center, rotate_coef);
 }
 
-int getCentrObj(threeDobject_t &obj, point_t &centr)
+int getCentrObj(threeDobject_t &obj, point_t &center)
 {
-    centr.y = obj.points.arr[4].y; // начальная точка ромба
-    centr.x = obj.points.arr[5].x;
+    if (obj.points.arr == nullptr)
+        return ERR_NULL_PTR;
+
+    double sum_x = 0, sum_y = 0;
+
+    for (size_t i = 0; i < obj.points.count; i++)
+    {
+        sum_x += obj.points.arr[i].x;
+        sum_y += obj.points.arr[i].y;
+    }
+
+    center.x = sum_x / obj.points.count;
+    center.y = sum_y / obj.points.count;
 
     return PASS;
 }

@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = oop_lab_one1.0.0
-DISTDIR = /home/max/cg/cg_bmstu/lab_02/.tmp/oop_lab_one1.0.0
+DISTDIR = /home/max/cg/bmstu_sem4/lab_02/.tmp/oop_lab_one1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
@@ -390,14 +390,14 @@ moc_mainwindow.cpp: mainwindow.h \
 		draw.h \
 		point.h \
 		errors.h \
+		points.h \
 		do_action.h \
 		object.h \
-		points.h \
 		ribs.h \
 		rib.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/max/cg/cg_bmstu/lab_02/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/max/cg/cg_bmstu/lab_02 -I/home/max/cg/cg_bmstu/lab_02 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/max/cg/bmstu_sem4/lab_02/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/max/cg/bmstu_sem4/lab_02 -I/home/max/cg/bmstu_sem4/lab_02 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -432,7 +432,8 @@ do_action.o: do_action.cpp do_action.h \
 
 draw.o: draw.cpp draw.h \
 		point.h \
-		errors.h
+		errors.h \
+		points.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o draw.o draw.cpp
 
 errors.o: errors.cpp errors.h
@@ -442,9 +443,9 @@ main.o: main.cpp mainwindow.h \
 		draw.h \
 		point.h \
 		errors.h \
+		points.h \
 		do_action.h \
 		object.h \
-		points.h \
 		ribs.h \
 		rib.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
@@ -453,9 +454,9 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		draw.h \
 		point.h \
 		errors.h \
+		points.h \
 		do_action.h \
 		object.h \
-		points.h \
 		ribs.h \
 		rib.h \
 		ui_mainwindow.h
