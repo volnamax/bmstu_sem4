@@ -12,10 +12,16 @@ threeDobject_t &initObj(void)
 int load_diam(FILE *in_file, threeDobject_t &obj)
 {
     int rc = PASS;
-    if (fscanf(in_file, "%lf %lf", &obj.diam_circle, &obj.diam_ellips) != 2)
+    if (fscanf(in_file, "%lf %lf", &obj.diam_circle.x, &obj.diam_circle.y) != 2)
         rc = ERR_READ_POINT;
 
-    else if (obj.diam_circle <= 0 || obj.diam_circle > SIZE_MAX || obj.diam_ellips <= 0 || obj.diam_ellips > SIZE_MAX)
+    else if (obj.diam_circle.x <= 0 || obj.diam_circle.x > SIZE_MAX || obj.diam_circle.y <= 0 || obj.diam_circle.y > SIZE_MAX)
+        rc = ERR_COUNT_RIBS;
+
+    if (fscanf(in_file, "%lf %lf", &obj.diam_ellips.x, &obj.diam_ellips.y) != 2)
+        rc = ERR_READ_POINT;
+
+    else if (obj.diam_ellips.x <= 0 || obj.diam_ellips.x > SIZE_MAX || obj.diam_ellips.y <= 0 || obj.diam_ellips.y > SIZE_MAX)
         rc = ERR_COUNT_RIBS;
 
     return rc;
@@ -50,7 +56,6 @@ int loadObjFromFile(const char *&name_f, threeDobject_t &obj)
                 freeObj(obj);
                 obj = initObj();
             }
-            printf("%lf. %lf", obj.diam_circle, obj.diam_ellips);
         }
         else
             freeArrPoint(obj.points); // если произошла ошибка при считывание ребер очищаем массив точек
@@ -66,9 +71,9 @@ int drawObj(canvas_t &scene, const threeDobject_t &obj)
     point_t point_one = {.x = obj.points.arr[0].x, .y = obj.points.arr[0].y};
     point_t point_two = {.x = obj.points.arr[1].x, .y = obj.points.arr[1].y};
 
-    //double diameter = getDiam(obj.points.arr[0].x, obj.points.arr[1].x, obj.points.arr[0].y, obj.points.arr[1].y);
+    // double diameter = getDiam(obj.points.arr[0].x, obj.points.arr[1].x, obj.points.arr[0].y, obj.points.arr[1].y);
     double angle = getAngleRotateLine(obj.points.arr[0].x, obj.points.arr[1].x, obj.points.arr[0].y, obj.points.arr[1].y);
-    drawElleps(scene, point_one, point_two, angle, LEFT_ELLEPS); // натягиваем на линию элипс
+    drawElleps(scene, obj.diam_circle, point_one, point_two, angle, LEFT_ELLEPS); // натягиваем на линию элипс
 
     // draw RIGHT halh circle
     angle = getAngleRotateLine(obj.points.arr[2].x, obj.points.arr[3].x, obj.points.arr[2].y, obj.points.arr[3].y);
@@ -78,7 +83,7 @@ int drawObj(canvas_t &scene, const threeDobject_t &obj)
     point_two.x = obj.points.arr[3].x;
     point_two.y = obj.points.arr[3].y;
 
-    drawElleps(scene, point_one, point_two, angle, RIGHT_ELLEPS);
+    drawElleps(scene, obj.diam_circle, point_one, point_two, angle, RIGHT_ELLEPS);
 
     // draw ellips top
     angle = getAngleRotateLine(obj.points.arr[1].x, obj.points.arr[2].x, obj.points.arr[1].y, obj.points.arr[2].y);
@@ -88,7 +93,7 @@ int drawObj(canvas_t &scene, const threeDobject_t &obj)
     point_two.x = obj.points.arr[2].x;
     point_two.y = obj.points.arr[2].y;
 
-    drawElleps(scene, point_one, point_two, angle, TOP_ELLEPS);
+    drawElleps(scene, obj.diam_ellips, point_one, point_two, angle, TOP_ELLEPS);
 
     // draw ellips  низ
     angle = getAngleRotateLine(obj.points.arr[0].x, obj.points.arr[3].x, obj.points.arr[0].y, obj.points.arr[3].y);
@@ -98,7 +103,7 @@ int drawObj(canvas_t &scene, const threeDobject_t &obj)
     point_two.x = obj.points.arr[3].x;
     point_two.y = obj.points.arr[3].y;
 
-    drawElleps(scene, point_one, point_two, angle, BOT_ELLEPS);
+    drawElleps(scene, obj.diam_ellips, point_one, point_two, angle, BOT_ELLEPS);
 
     return drawRibs(scene, obj.points, obj.ribs);
 }
@@ -110,8 +115,11 @@ int transferObj(threeDobject_t &obj, const point_t transfer_coef)
 
 int scaleObj(threeDobject_t &obj, const point_t &center, const point_t &scale_coef)
 {
-    obj.diam_circle = obj.diam_circle * scale_coef.x;
-    obj.diam_ellips = obj.diam_ellips * scale_coef.y;
+    obj.diam_circle.x = obj.diam_circle.x * abs(scale_coef.x);
+    obj.diam_circle.y = obj.diam_circle.y * abs(scale_coef.y);
+
+    obj.diam_ellips.y = obj.diam_ellips.y * abs(scale_coef.y);
+    obj.diam_ellips.x = obj.diam_ellips.x * abs(scale_coef.x);
 
     return scalePoints(obj.points, center, scale_coef);
 }
@@ -162,6 +170,8 @@ int copy_Obj(threeDobject_t &obj, threeDobject_t &tmp_obj)
             }
         }
     }
+    tmp_obj.diam_circle = obj.diam_circle;
+    tmp_obj.diam_ellips = obj.diam_ellips;
     return rc;
 }
 

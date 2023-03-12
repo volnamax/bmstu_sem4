@@ -12,9 +12,8 @@ struct threeDobject_t
 {
     points_t points; // структура с массивом структур точек
     ribs_t ribs;     // структура с массивом структур ребер
-    double diam_circle;
-    double diam_ellips;
-    
+    point_t diam_circle;
+    point_t diam_ellips;
 };
 
 /**
