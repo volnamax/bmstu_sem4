@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1129</width>
+    <height>766</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Lab_01</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="7" column="0">
+     <widget class="QGraphicsView" name="graphicsView"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QPushButton" name="downloadFigure">
+      <property name="text">
+       <string>Загрузить из файла фигуру</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="MainBox">
+      <property name="title">
+       <string>Преобразование фигуры</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="kxBox">
+         <property name="title">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QPushButton" name="kxButton">
+            <property name="text">
+             <string>Масштабировать</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="kxLayot">
+            <item row="0" column="0">
+             <layout class="QFormLayout" name="kxLayout">
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="kxTextLayout">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetDefaultConstraint</enum>
+                </property>
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="kxText">
+                  <property name="text">
+                   <string>kX</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="kyText">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="contextMenuPolicy">
+                   <enum>Qt::CustomContextMenu</enum>
+                  </property>
+                  <property name="text">
+                   <string>kY</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="kzText">
+                  <property name="text">
+                   <string>kZ</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="kxDoubleLayot">
+                <item>
+                 <widget class="QDoubleSpinBox" name="kxDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="kyDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="kzDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <layout class="QFormLayout" name="kxCentrLauot">
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="kxCentrTextLayout">
+                <item>
+                 <widget class="QLabel" name="kxCentText">
+                  <property name="text">
+                   <string>Центр X</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="kyCentrText">
+                  <property name="text">
+                   <string>Центр Y</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="kzCentText">
+                  <property name="text">
+                   <string>Центр Z</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="kxCentrDoubleLayout">
+                <item>
+                 <widget class="QDoubleSpinBox" name="kxCentrDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="kyCentrDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="kzCentrDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="AngleBox">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="AngleButton">
+            <property name="text">
+             <string>Повернуть</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="AngleMainLayout">
+            <item row="0" column="0">
+             <layout class="QFormLayout" name="AngleLayout">
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="AngleTextLayot">
+                <item>
+                 <widget class="QLabel" name="AngleXText">
+                  <property name="text">
+                   <string>Угол X</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="AngleYtext">
+                  <property name="text">
+                   <string>Угол Y</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="AngleZtext">
+                  <property name="text">
+                   <string>Угол Z</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="AngleDoubleLayout">
+                <item>
+                 <widget class="QDoubleSpinBox" name="AngleXDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="AngleYDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="AngleZDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <layout class="QFormLayout" name="AngleCentrLayout">
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="AngleCentrTextLayout">
+                <item>
+                 <widget class="QLabel" name="AngleCentrXText">
+                  <property name="text">
+                   <string>Центр X</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="AngleCentrYText">
+                  <property name="text">
+                   <string>Центр Y</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="AngleCentrZText">
+                  <property name="text">
+                   <string>Центр Z</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="AngleCentrDoubleLAyout">
+                <item>
+                 <widget class="QDoubleSpinBox" name="AngleCentrXDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="AngleCentrYDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QDoubleSpinBox" name="AngleCentrZDouble">
+                  <property name="minimum">
+                   <double>-10000.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="dxBox">
+         <property name="title">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_11">
+          <item>
+           <widget class="QPushButton" name="dxButton">
+            <property name="text">
+             <string>Переместить</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QFormLayout" name="dxMainLayot">
+            <item row="0" column="0">
+             <layout class="QVBoxLayout" name="dxTextLayout">
+              <item>
+               <widget class="QLabel" name="dxText">
+                <property name="text">
+                 <string>dX</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="dyText">
+                <property name="text">
+                 <string>dY</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="dzText">
+                <property name="text">
+                 <string>dZ</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="0" column="1">
+             <layout class="QVBoxLayout" name="dxDoubleLayot">
+              <item>
+               <widget class="QDoubleSpinBox" name="dxDouble">
+                <property name="minimum">
+                 <double>-10000.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>10000.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="dyDouble">
+                <property name="minimum">
+                 <double>-10000.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>10000.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="dzDouble">
+                <property name="minimum">
+                 <double>-10000.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>10000.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
