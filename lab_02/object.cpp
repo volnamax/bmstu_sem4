@@ -39,8 +39,12 @@ int loadObjFromFile(const char *&name_f, threeDobject_t &obj)
                 freeObj(obj);
                 obj = initObj();
             }
-            for (size_t i = 0; i < obj.ellipse.count; i++)
-                printf("%lf ", obj.ellipse.arr[i].x);
+            rc = loadRibs(in_file, obj.ellipse_ribs); // считываем связи точек - ребра
+            if (rc != PASS)
+            {
+                freeObj(obj);
+                obj = initObj();
+            }
         }
         else
             freeArrPoint(obj.points); // если произошла ошибка при считывание ребер очищаем массив точек
@@ -71,16 +75,15 @@ int drawObj(canvas_t &scene, const threeDobject_t &obj)
     // drawElleps(scene, obj.diam_circle, point_one, point_two, angle, RIGHT_ELLEPS);
 
     // draw ellips top
-    angle = getAngleRotateLine(obj.points.arr[1].x, obj.points.arr[2].x, obj.points.arr[1].y, obj.points.arr[2].y);
-    point_one.x = obj.points.arr[1].x;
-    point_one.y = obj.points.arr[1].y;
+    // angle = getAngleRotateLine(obj.points.arr[1].x, obj.points.arr[2].x, obj.points.arr[1].y, obj.points.arr[2].y);
+    // point_one.x = obj.points.arr[1].x;
+    // point_one.y = obj.points.arr[1].y;
 
-    point_two.x = obj.points.arr[2].x;
-    point_two.y = obj.points.arr[2].y;
+    // point_two.x = obj.points.arr[2].x;
+    // point_two.y = obj.points.arr[2].y;
 
-    drawElleps(scene, obj.ellipse, angle);
-
-    // // draw ellips  низ
+    //drawElleps(scene);
+    //  draw ellips  низ
     // angle = getAngleRotateLine(obj.points.arr[0].x, obj.points.arr[3].x, obj.points.arr[0].y, obj.points.arr[3].y);
     // point_one.x = obj.points.arr[0].x;
     // point_one.y = obj.points.arr[0].y;
@@ -89,6 +92,7 @@ int drawObj(canvas_t &scene, const threeDobject_t &obj)
     // point_two.y = obj.points.arr[3].y;
 
     // drawElleps(scene, obj.diam_ellips, point_one, point_two, angle, BOT_ELLEPS);
+    drawRibs(scene, obj.ellipse, obj.ellipse_ribs);
 
     return drawRibs(scene, obj.points, obj.ribs);
 }

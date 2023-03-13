@@ -11,7 +11,6 @@ int doAction(action_t &act)
     {
         copy_Obj(obj, tmp_obj);
         rc = loadObjFromFile(act.name_f, obj);
-
     }
     else if (act.action == ACTION_DRAW)
         rc = drawObj(act.scene, obj);

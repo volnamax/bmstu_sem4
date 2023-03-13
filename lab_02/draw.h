@@ -22,5 +22,5 @@ struct canvas_t
 
 void drawline(const canvas_t &scene, const point_t &first_point, const point_t &second_point);
 void clearAll(const canvas_t &scene);
-void drawElleps(const canvas_t &scene, points_t rec, double angle);
+void drawElleps(const canvas_t &scene);
 #endif // __DRAW_H__
